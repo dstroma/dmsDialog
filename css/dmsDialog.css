@@ -27,6 +27,9 @@ div.dmsDialog div.dialog {
 
 	font-size: 15px;
 }
+div.dmsDialog div.dialog div.buttons {
+	text-align: right;
+}
 div.dmsDialog div.dialog button {
 	background-color: #ddd;
 	border: 1px solid #ccc;
@@ -41,7 +44,6 @@ div.dmsDialog div.dialog button.ok {
 	border-color: #16e;
 	color: #eee;
 }
-
 div.dmsDialog div.dialog button.ok:hover {
 	border-color: #04c;
 	background-color: #16e;
