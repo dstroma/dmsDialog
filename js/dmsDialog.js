@@ -2,6 +2,12 @@ var dmsDialog = {
 
 cb: null,
 
+on: false,
+
+q: [],
+
+qLimit: 8,
+
 el: function(n) {
 	var el = document.getElementById('dmsDialog' + (n||''));
 	if (!el) {
@@ -12,7 +18,13 @@ el: function(n) {
 },
 
 di: function(cont,cancBtn,cb) {
+	if (this.on) {
+		if (this.q.length < this.qLimit)
+			this.q.push([cont,cancBtn,cb]);
+		return;
+	}
 	this.cb = cb;
+	this.on = true;
 
 	// add <p> tags
 	if (!Array.isArray(cont)) cont = [cont];
@@ -24,14 +36,25 @@ di: function(cont,cancBtn,cb) {
 	this.el().style.display = 'block';
 },
 
+qShow: function() {
+	if (this.q.length) {
+		var e = this.q.shift();
+		this.di(e[0],e[1],e[2]);
+	}
+},
+
 pressOK: function(){
 	this.el().style.display = 'none';
 	if (this.cb) this.cb(true);
+	this.on = false;
+	this.qShow();
 },
 
 pressCx: function(){
 	this.el().style.display = 'none';
 	if (this.cb) this.cb(false);
+	this.on = false;
+	this.qShow();
 },
 
 alert: function(cont) { this.di(cont, false, null); },
